@@ -1,0 +1,20 @@
+{
+  "name": "Facebook Social Provider",
+  "description": "Social provider using Facebook chat protocols",
+  "app": {
+    "script": [
+      "firebase.js",
+      "socialprovider.js"
+   	]
+  },
+  "provides": [
+    "social"
+  ],
+  "permissions": [
+    "core.tcpsocket",
+    "core.udpsocket",
+    "core.websocket",
+    "core.oauth",
+    "core.storage"
+  ]
+}
