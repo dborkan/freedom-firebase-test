@@ -8307,6 +8307,7 @@ fb.login.transports.util.findRelay = function() {
   return null;
 };
 fb.login.transports.util.addListener = function(target, event, cb) {
+  console.log("adding listener!");
   if (target["attachEvent"]) {
     target["attachEvent"]("on" + event, cb);
   } else {
@@ -8765,6 +8766,7 @@ fb.login.transports.JSONP = function(options) {
   window[fb.login.Constants.JSONP_CALLBACK_NAMESPACE] = window[fb.login.Constants.JSONP_CALLBACK_NAMESPACE] || {};
 };
 fb.login.transports.JSONP.prototype.open = function(url, params, cb) {
+  console.log("fb.login open start");
   var id = "fn" + (new Date).getTime() + Math.floor(Math.random() * 99999);
   params[this.options["callback_parameter"]] = fb.login.Constants.JSONP_CALLBACK_NAMESPACE + "." + id;
   url += (/\?/.test(url) ? "" : "?") + fb.login.transports.util.querystring(params);
@@ -8774,7 +8776,9 @@ fb.login.transports.JSONP.prototype.open = function(url, params, cb) {
       cb = null;
     }
   }
+  console.log("fb.login about to add listener");
   fb.login.transports.util.addListener(window, "beforeunload", handleInterrupt_);
+  console.log("added listener");
   function cleanup_() {
     setTimeout(function() {
       window[fb.login.Constants.JSONP_CALLBACK_NAMESPACE][id] = undefined;
@@ -8789,6 +8793,7 @@ fb.login.transports.JSONP.prototype.open = function(url, params, cb) {
       } catch (e) {
       }
     }, 1);
+    console.log("fb.login about to remove listener");
     fb.login.transports.util.removeListener(window, "beforeunload", handleInterrupt_);
   }
   function onload_(res) {
@@ -8799,12 +8804,14 @@ fb.login.transports.JSONP.prototype.open = function(url, params, cb) {
     cleanup_();
   }
   window[fb.login.Constants.JSONP_CALLBACK_NAMESPACE][id] = onload_;
+  console.log("about to writeScriptTag_");
   this.writeScriptTag_(id, url, cb);
 };
 fb.login.transports.JSONP.prototype.writeScriptTag_ = function(id, url, cb) {
   setTimeout(function() {
     try {
       var js = document.createElement("script");
+      console.log("created js document");
       js.type = "text/javascript";
       js.id = id;
       js.async = true;
@@ -8815,6 +8822,7 @@ fb.login.transports.JSONP.prototype.writeScriptTag_ = function(id, url, cb) {
           el.parentNode.removeChild(el);
         }
         if (cb) {
+          console.log("inner NETWORK_ERROR");
           cb(fb.login.Errors.get("NETWORK_ERROR"));
         }
       };
@@ -8828,6 +8836,8 @@ fb.login.transports.JSONP.prototype.writeScriptTag_ = function(id, url, cb) {
       ref.appendChild(js);
     } catch (e) {
       if (cb) {
+        console.log("outer NETWORK_ERROR");
+        console.log(e);
         cb(fb.login.Errors.get("NETWORK_ERROR"));
       }
     }
