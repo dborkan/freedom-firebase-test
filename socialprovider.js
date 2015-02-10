@@ -51,6 +51,7 @@ var XMPPSocialProvider = function(dispatchEvent) {
   }
 
   function loadFriends() {
+    console.log('entering loadFriends');
     return facebookGet('me/friends')
         .then(function(friendsData) {
           console.log('got friends', friendsData);
