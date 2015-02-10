@@ -26,5 +26,8 @@
       "recv-buddylist": {"type": "event", "value": "object"},
       "recv-uid": {"type": "event", "value": "string"}
     }
-  }
+  },
+  "permissions": [
+    "core.xhr"
+  ]
 }

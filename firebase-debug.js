@@ -8454,7 +8454,9 @@ fb.login.transports.XHR = function(options) {
 };
 fb.login.transports.XHR.prototype.open = function(url, params, cb) {
   var self = this;
+  console.log(XMLHttpRequest);
   var xhr = new XMLHttpRequest, method = this.options["method"].toUpperCase(), payload;
+  console.log(xhr);
   function handleInterrupt_(e) {
     if (cb) {
       cb(fb.login.Errors.get("REQUEST_INTERRUPTED"));
@@ -8503,6 +8505,11 @@ fb.login.transports.XHR.prototype.open = function(url, params, cb) {
   xhr.send(payload);
 };
 fb.login.transports.XHR["isAvailable"] = function() {
+  console.log("IS AVAILABLE");
+  console.log(!NODE_CLIENT);
+  console.log(!!window["XMLHttpRequest"]);
+  console.log(typeof(new XMLHttpRequest).responseType === "string");
+  console.log((!fb.login.util.environment.isIE() || fb.login.util.environment.isModernIE()));
   return!NODE_CLIENT && !!window["XMLHttpRequest"] && typeof(new XMLHttpRequest).responseType === "string" && (!fb.login.util.environment.isIE() || fb.login.util.environment.isModernIE());
 };
 fb.login.transports.XHR.prototype.classification = function() {
