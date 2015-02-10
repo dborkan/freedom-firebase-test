@@ -1,4 +1,6 @@
 /*! @license Firebase v2.1.2 - License: https://www.firebase.com/terms/terms-of-service.html */ var CLOSURE_NO_DEPS = true; var COMPILED = false;
+console.log("loading firebase");
+console.log(window);
 var goog = goog || {};
 goog.global = this;
 goog.global.CLOSURE_UNCOMPILED_DEFINES;

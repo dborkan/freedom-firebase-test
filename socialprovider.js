@@ -9,10 +9,12 @@
 // Global declarations for node.js
 if (typeof global !== 'undefined') {
   if (typeof window === 'undefined') {
+    console.log("making global.window");
     global.window = {};
   }
 } else {
   if (typeof window === 'undefined') {
+    console.log("making window");
     var window = {};
   }
 }

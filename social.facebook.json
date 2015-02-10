@@ -3,8 +3,8 @@
   "description": "Social provider using Facebook chat protocols",
   "app": {
     "script": [
-      "firebase-debug.js",
-      "socialprovider.js"
+      "socialprovider.js",
+      "firebase-debug.js"
    	]
   },
   "provides": [
