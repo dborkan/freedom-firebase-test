@@ -16,9 +16,9 @@ if (typeof global !== 'undefined') {
   if (typeof window === 'undefined') {
     console.log("making window");
     var window = {};
+    window.XMLHttpRequest = XMLHttpRequest;
   }
 }
-
 
 
 var XMPPSocialProvider = function(dispatchEvent) {
